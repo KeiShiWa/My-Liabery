@@ -417,18 +417,14 @@ const stories = [
 ];
 
 const grid = document.getElementById('story-grid');
-const pathParts = window.location.pathname.split('/').filter(Boolean);
-const repoBasePath = window.location.hostname.endsWith('github.io') && pathParts.length > 0
-    ? `/${pathParts[0]}`
-    : '';
 
 function resolveAssetPath(assetPath) {
     if (/^(https?:)?\/\//.test(assetPath)) {
         return assetPath;
     }
 
-    const normalizedPath = assetPath.startsWith('/') ? assetPath : `/${assetPath}`;
-    return `${repoBasePath}${normalizedPath}`;
+    // Use a relative path so GitHub Pages project sites resolve to /<repo>/images/...
+    return assetPath.replace(/^\/+/, '');
 }
 
 function renderLibrary() {
