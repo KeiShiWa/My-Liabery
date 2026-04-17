@@ -427,6 +427,17 @@ function resolveAssetPath(assetPath) {
     return assetPath.replace(/^\/+/, '');
 }
 
+function resolveThumbnailPath(assetPath) {
+    if (/^(https?:)?\/\//.test(assetPath)) {
+        return assetPath;
+    }
+
+    const cleanPath = assetPath.replace(/^\/+/, '');
+    const fileName = cleanPath.split('/').pop();
+    const baseName = fileName.replace(/\.[^.]+$/, '');
+    return `thumbs/${baseName}.jpg`;
+}
+
 function renderLibrary() {
     stories.forEach((story, index) => {
         // We use Bootstrap col-classes for responsiveness:
@@ -437,7 +448,16 @@ function renderLibrary() {
             <div class="col-6 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="${index * 100}">
                 <article class="story-card">
                     <div class="card-img-container">
-                        <img src="${resolveAssetPath(story.img)}" class="card-img-top" alt="${story.title}" loading="lazy">
+                        <img
+                            src="${resolveThumbnailPath(story.img)}"
+                            data-full-src="${resolveAssetPath(story.img)}"
+                            class="card-img-top"
+                            alt="${story.title}"
+                            loading="lazy"
+                            decoding="async"
+                            width="480"
+                            height="640"
+                        >
                     </div>
                     <div class="card-body">
                         <h2 class="card-title fw-bold">${story.title}</h2>
