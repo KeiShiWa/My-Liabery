@@ -417,6 +417,19 @@ const stories = [
 ];
 
 const grid = document.getElementById('story-grid');
+const pathParts = window.location.pathname.split('/').filter(Boolean);
+const repoBasePath = window.location.hostname.endsWith('github.io') && pathParts.length > 0
+    ? `/${pathParts[0]}`
+    : '';
+
+function resolveAssetPath(assetPath) {
+    if (/^(https?:)?\/\//.test(assetPath)) {
+        return assetPath;
+    }
+
+    const normalizedPath = assetPath.startsWith('/') ? assetPath : `/${assetPath}`;
+    return `${repoBasePath}${normalizedPath}`;
+}
 
 function renderLibrary() {
     stories.forEach((story, index) => {
@@ -428,7 +441,7 @@ function renderLibrary() {
             <div class="col-6 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="${index * 100}">
                 <article class="story-card">
                     <div class="card-img-container">
-                        <img src="${story.img}" class="card-img-top" alt="${story.title}" loading="lazy">
+                        <img src="${resolveAssetPath(story.img)}" class="card-img-top" alt="${story.title}" loading="lazy">
                     </div>
                     <div class="card-body">
                         <h2 class="card-title fw-bold">${story.title}</h2>
