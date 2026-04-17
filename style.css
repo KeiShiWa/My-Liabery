@@ -118,12 +118,24 @@ body {
     .card-title {
         font-size: 1.1rem;
         margin-bottom: 0.75rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
     }
 
     .card-text {
         font-size: 0.85rem;
         margin-bottom: 1rem;
         line-height: 1.4;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
     }
 
     .btn-read {
@@ -152,9 +164,13 @@ body {
 
     .card-title {
         font-size: 1rem;
+        -webkit-line-clamp: 1;
+        line-clamp: 1;
     }
 
     .card-text {
         font-size: 0.8rem;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
     }
 }
